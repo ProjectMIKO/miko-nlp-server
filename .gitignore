@@ -1,0 +1,21 @@
+# Ignore virtual environment
+.venv/
+
+# Ignore Flask specific files
+instance/
+*.pyc
+__pycache__/
+.env
+
+# Ignore IDE files
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# Ignore logs and temporary files
+*.log
+*.swp
+*.swo
+*.tmp
+*.bak
