@@ -1,17 +1,13 @@
-import os
 from flask import Flask, request, jsonify
+from flask_cors import CORS
 from openai import OpenAI
-from dotenv import load_dotenv
-
+from config.config import OPENAI_API_KEY
 from util.cost_calculator import calculate_cost
 
-load_dotenv()
-api_key = os.getenv("OPENAI_API_KEY")
-
-client = OpenAI(api_key=api_key)
+client = OpenAI(api_key=OPENAI_API_KEY)
 
 app = Flask(__name__)
-
+CORS(app)
 
 @app.route('/keyword', methods=['POST'])
 def chat():

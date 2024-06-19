@@ -10,7 +10,7 @@ def calculate_cost(chat_completion):
     else:
         raise ValueError(f"Model not supported: {model}")
 
-    prompt_cost = (prompt_tokens / 1_000_000) * prompt_cost_per_million
-    completion_cost = (completion_tokens / 1_000_000) * completion_cost_per_million
+    prompt_cost = prompt_tokens * prompt_cost_per_million / 1_000_000
+    completion_cost = completion_tokens * completion_cost_per_million / 1_000_000
 
     return prompt_cost + completion_cost
