@@ -3,14 +3,13 @@ from flask import Flask, request, jsonify
 from openai import OpenAI
 from dotenv import load_dotenv
 
-# Load environment variables
+from util.cost_calculator import calculate_cost
+
 load_dotenv()
 api_key = os.getenv("OPENAI_API_KEY")
 
-# Initialize OpenAI client
 client = OpenAI(api_key=api_key)
 
-# Create a Flask app
 app = Flask(__name__)
 
 
@@ -36,6 +35,11 @@ def chat():
             model="gpt-3.5-turbo",
         )
         response_message = chat_completion.choices[0].message.content.strip()
+
+        print(f"요청 내용: \n{user_message}")
+        # gpt 요청 비용 계산
+        cost = calculate_cost(chat_completion)
+        print(f"Cost: ${cost:.5f}")
 
         return jsonify({"response": response_message}), 200
 
