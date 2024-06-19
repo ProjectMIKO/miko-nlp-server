@@ -1,4 +1,5 @@
 from flask import Flask, request, jsonify
+from flask_cors import CORS
 from openai import OpenAI
 from config.config import OPENAI_API_KEY
 from util.cost_calculator import calculate_cost
@@ -6,7 +7,7 @@ from util.cost_calculator import calculate_cost
 client = OpenAI(api_key=OPENAI_API_KEY)
 
 app = Flask(__name__)
-
+CORS(app)
 
 @app.route('/keyword', methods=['POST'])
 def chat():
