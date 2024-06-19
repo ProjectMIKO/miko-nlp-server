@@ -41,7 +41,7 @@ def chat():
         cost = calculate_cost(chat_completion)
         print(f"Cost: ${cost:.5f}")
 
-        return jsonify({"response": response_message}), 200
+        return jsonify({"keyword": response_message, "cost": cost}), 200
 
     except Exception as e:
         return jsonify({"error": str(e)}), 500
