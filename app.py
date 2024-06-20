@@ -1,12 +1,20 @@
-from flask import Flask
+from flask import Flask, request
 from flask_cors import CORS
 from nlp_keyword.controller import keyword
 
 import locale
+
 locale.setlocale(locale.LC_ALL, 'en_US.UTF-8')
 
 app = Flask(__name__)
-CORS(app)
+CORS(app, resources={r"/api/*": {"origins": "*"}})
+
+
+@app.before_request
+def handle_options_request():
+    if request.method == 'OPTIONS':
+        return '', 200
+
 
 app.register_blueprint(keyword, url_prefix='/api/keyword')
 
