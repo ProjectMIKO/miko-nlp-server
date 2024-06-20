@@ -12,9 +12,9 @@ def get_keyword():
         if not user_message:
             return jsonify({"error": "메시지가 제공되지 않았습니다."}), 400
 
-        response_message, cost = process_message(user_message)
+        keyword, subtitle, cost = process_message(user_message)
 
-        return jsonify({"nlp_keyword": response_message, "cost": cost}), 200
+        return jsonify({"keyword": keyword, "subtitle": subtitle, "cost": cost}), 200
 
     except Exception as e:
         return jsonify({"error": str(e)}), 500
