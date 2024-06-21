@@ -1,5 +1,5 @@
 from flask import Blueprint, request, jsonify
-from nlp_keyword.service import process_message
+import nlp_keyword.service as service
 
 keyword = Blueprint('nlp_keyword', __name__)
 
@@ -12,7 +12,7 @@ def get_keyword():
         if not user_message:
             return jsonify({"error": "메시지가 제공되지 않았습니다."}), 400
 
-        keyword, subtitle, cost = process_message(user_message)
+        keyword, subtitle, cost = service.process_message(user_message)
 
         return jsonify({"keyword": keyword, "subtitle": subtitle, "cost": cost}), 200
 

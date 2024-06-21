@@ -20,3 +20,6 @@ __pycache__/
 *.swo
 *.tmp
 *.bak
+
+# Ignore Test Directory
+test/
