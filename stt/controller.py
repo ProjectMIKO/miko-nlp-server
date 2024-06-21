@@ -7,10 +7,10 @@ stt = Blueprint('stt', __name__)
 @stt.route('/', methods=['POST'])
 def speech_to_text():
     if 'file' not in request.files:
-        return jsonify({'error': 'No file part'}), 400
+        return jsonify({'message': 'Error: No file part'}), 400
     file = request.files['file']
     if file.filename == '':
-        return jsonify({'error': 'No selected file'}), 400
+        return jsonify({'message': 'Error: No selected file'}), 400
     if file:
         file_contents = file.read()
 
@@ -19,4 +19,4 @@ def speech_to_text():
         asyncio.set_event_loop(loop)
         status, response_data = loop.run_until_complete(service.request_text(file_contents))
 
-        return jsonify(response_data), status
+        return jsonify({'message': response_data}), status
