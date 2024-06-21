@@ -7,10 +7,10 @@ stt = Blueprint('stt', __name__)
 @stt.route('/', methods=['POST'])
 def speech_to_text():
     if 'file' not in request.files:
-        return jsonify({'message': 'Error: No file part'}), 400
+        return jsonify({'text': 'Error: No file part'}), 400
     file = request.files['file']
     if file.filename == '':
-        return jsonify({'message': 'Error: No selected file'}), 400
+        return jsonify({'text': 'Error: No selected file'}), 400
     if file:
         file_contents = file.read()
 
