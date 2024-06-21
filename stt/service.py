@@ -27,4 +27,4 @@ async def request_text(voice):
                 json=request_json
         ) as response:
             response_data = await response.json()
-            return response.status, response_data
+            return response.status, response_data['return_object']['recognized']
