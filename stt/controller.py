@@ -1,6 +1,6 @@
+
 from flask import Blueprint, request, jsonify
-import asyncio
-import stt.service as service
+import stt.returnzero_service as returnzero_service
 
 stt = Blueprint('stt', __name__)
 
@@ -12,11 +12,8 @@ def speech_to_text():
     if file.filename == '':
         return jsonify({'text': 'Error: No selected file'}), 400
     if file:
-        file_contents = file.read()
-
-        # 비동기 요청 처리
-        loop = asyncio.new_event_loop()
-        asyncio.set_event_loop(loop)
-        status, response_data = loop.run_until_complete(service.request_text(file_contents))
-
-        return jsonify({'text': response_data}), status
+        try:
+            status, response_data = returnzero_service.request_text(file)
+            return jsonify({'text': response_data}), status
+        except Exception as e:
+            return jsonify({'text': str(e)}), 500
