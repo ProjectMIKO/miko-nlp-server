@@ -38,8 +38,11 @@ async def request_text(file):
     # 전사 요청 제출
     async with aiohttp.ClientSession(connector=aiohttp.TCPConnector(ssl=False)) as session:
         data = aiohttp.FormData()
-        data.add_field('config', json.dumps(config))
-        data.add_field('file', file.stream, filename=file.filename, content_type=file.content_type)
+        data.add_field('config', json.dumps(config), content_type='application/json')
+        
+        # 파일을 바이트 스트림으로 변환하여 추가
+        file.seek(0)  # 파일의 시작 부분으로 이동
+        data.add_field('file', file.read(), filename=file.filename, content_type=file.content_type)
 
         async with session.post(
             'https://openapi.vito.ai/v1/transcribe',
@@ -53,12 +56,15 @@ async def request_text(file):
 
         # 전사 상태 확인
         status_url = f'https://openapi.vito.ai/v1/transcribe/{transcription_id}'
+        print(f"Status URL: {status_url}")  # Status URL 확인용 출력
         while True:
             async with session.get(
                 status_url,
                 headers={'Authorization': 'bearer ' + accessToken}
             ) as status_resp:
                 print(f"Checking status at URL: {status_url}")
+                if status_resp.status == 404:
+                    print(f"404 Error: {await status_resp.text()}")
                 status_resp.raise_for_status()
                 status_data = await status_resp.json()
                 print(f"Status Data: {status_data}")
