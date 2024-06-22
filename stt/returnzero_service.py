@@ -24,13 +24,13 @@ def request_text(file):
     print(f"Access Token: {accessToken}")
 
     config = {
-        "use_diarization": True,
-        "diarization": {"spk_count": 5},
-        "use_itn": False,
-        "use_disfluency_filter": False,
-        "use_profanity_filter": False,
-        "use_paragraph_splitter": True,
-        "paragraph_splitter": {"max": 50}
+        "use_diarization": False,            # 화자분리 사용할지 여부
+        # "diarization": {"spk_count": 5},    # 예상 화자수
+        "use_itn": True,                    # ITN 사용 (use_itn=True): "twenty twenty-four" → "2024"
+        "use_disfluency_filter": True,      # '음', '어', '그', 같은 중간에 끼어드는 불필요한 말이나 소리를 제거
+        "use_profanity_filter": False,      # 비속어 필터
+        "use_paragraph_splitter": False,    # 단락 분리기
+        "paragraph_splitter": {"max": 50}   # 단락 분리기 설정
     }
 
     # 파일을 바이트 스트림으로 변환하여 추가
