@@ -17,6 +17,6 @@ def speech_to_text():
         # 비동기 요청 처리
         loop = asyncio.new_event_loop()
         asyncio.set_event_loop(loop)
-        status, response_data = loop.run_until_complete(service.request_text(file_contents))
+        status, response_data = loop.run_until_complete(service.transcript(file_contents))
 
         return jsonify({'text': response_data}), status

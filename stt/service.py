@@ -7,7 +7,8 @@ accessKey = ETRI_API_KEY
 languageCode = "korean"
 
 
-async def request_text(voice):
+async def transcript(voice):
+
     audio_contents = base64.b64encode(voice).decode("utf8")
 
     request_json = {
