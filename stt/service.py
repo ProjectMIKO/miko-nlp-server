@@ -2,7 +2,7 @@ import aiohttp
 import base64
 from config import ETRI_API_KEY
 
-openApiURL = "http://aiopen.etri.re.kr:8000/WiseASR/Recognition"
+apiUrl = "http://aiopen.etri.re.kr:8000/WiseASR/Recognition"
 accessKey = ETRI_API_KEY
 languageCode = "korean"
 
@@ -20,7 +20,7 @@ async def transcript(voice):
 
     async with aiohttp.ClientSession() as session:
         async with session.post(
-                openApiURL,
+                apiUrl,
                 headers={
                     "Content-Type": "application/json; charset=UTF-8",
                     "Authorization": accessKey
