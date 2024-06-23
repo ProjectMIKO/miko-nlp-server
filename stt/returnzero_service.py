@@ -8,6 +8,7 @@ import json
 import requests
 import time
 def request_text(file):
+    print("\n리턴제로 요청 시작")
     client_id = os.getenv("RT_CLIENT_ID")
     client_secret = os.getenv("RT_CLIENT_SECRET")
 
@@ -21,13 +22,13 @@ def request_text(file):
     )
     auth_resp.raise_for_status()
     accessToken = auth_resp.json()['access_token']
-    print(f"Access Token: {accessToken}")
+    # print(f"Access Token: {accessToken}")
 
     config = {
         "use_diarization": False,            # 화자분리 사용할지 여부
         # "diarization": {"spk_count": 5},    # 예상 화자수
         "use_itn": True,                    # ITN 사용 (use_itn=True): "twenty twenty-four" → "2024"
-        "use_disfluency_filter": True,      # '음', '어', '그', 같은 중간에 끼어드는 불필요한 말이나 소리를 제거
+        "use_disfluency_filter": False,      # '음', '어', '그', 같은 중간에 끼어드는 불필요한 말이나 소리를 제거
         "use_profanity_filter": False,      # 비속어 필터
         "use_paragraph_splitter": False,    # 단락 분리기
         "paragraph_splitter": {"max": 50}   # 단락 분리기 설정
@@ -49,7 +50,7 @@ def request_text(file):
     transcribe_resp.raise_for_status()
     response_json = transcribe_resp.json()
     transcription_id = response_json['id']
-    print(f"Transcription ID: {transcription_id}")
+    # print(f"Transcription ID: {transcription_id}")
 
     # 전사 상태 확인
     status_url = f'https://openapi.vito.ai/v1/transcribe/{transcription_id}'
@@ -58,7 +59,7 @@ def request_text(file):
             status_url,
             headers={'Authorization': 'bearer ' + accessToken}
         )
-        print(f"Checking status at URL: {status_url}")
+        # print(f"Checking status at URL: {status_url}")
         status_resp.raise_for_status()
         status_data = status_resp.json()
         print(f"Status Data: {status_data}")
