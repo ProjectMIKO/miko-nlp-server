@@ -5,6 +5,7 @@ import json
 
 client = OpenAI(api_key=OPENAI_API_KEY)
 
+
 def process_message(user_message):
     print("\nGPT 키워드 요청 시작")
     # GPT 모델에 요약 요청
@@ -18,11 +19,7 @@ def process_message(user_message):
             Desired JSON output:
             {{
               "keyword": "봇 프롬포트 수정 회의",
-              "summary":
-              "봇 프롬포트 수정:
-              - 프롬포트를 더 다듬어달라는 요청
-              - 사용자에게 명확한 지시를 위한 수정 필요성 언급
-              - 간결하고 이해하기 쉽게 작성할 필요성 강조"
+              "summary": "봇 프롬포트 수정:\\n- 프롬포트를 더 다듬어달라는 요청\\n- 사용자에게 명확한 지시를 위한 수정 필요성 언급\\n- 간결하고 이해하기 쉽게 작성할 필요성 강조"
             }}
             
             Conversation to summarize:
@@ -36,17 +33,17 @@ def process_message(user_message):
         ],
         model="gpt-3.5-turbo",
     )
-    
+
     response_message = json.loads(chat_completion.choices[0].message.content.strip())
 
     keyword = response_message.get("keyword")
     subtitle = response_message.get("summary")
 
-    print(f"요청 내용: \n{user_message}")
+    # print(f"요청 내용: \n{user_message}")
     # gpt 요청 비용 계산
     cost = calculate_cost(chat_completion)
-    print(f"키워드: {keyword}")
-    print(f"소제목: {subtitle}")
-    print(f"Cost: ${cost:.5f}")
+    # print(f"키워드: {keyword}")
+    # print(f"소제목: {subtitle}")
+    # print(f"Cost: ${cost:.5f}")
 
     return keyword, subtitle, cost
