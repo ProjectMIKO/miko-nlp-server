@@ -3,6 +3,7 @@ import nlp_keyword.service as service
 
 keyword = Blueprint('nlp_keyword', __name__)
 
+
 @keyword.route('/', methods=['POST'])
 def get_keyword():
     try:
