@@ -64,7 +64,8 @@ def request_text(file):
         print(f"Status Data: {status_data}")
 
         if status_data['status'] == 'completed':
-            return status_resp.status_code, status_data['results']
+            script = ' '.join([utterance['msg'] for utterance in status_data['results']['utterances']])
+            return status_resp.status_code, script
         elif status_data['status'] == 'failed':
             return status_resp.status_code, "Transcription failed"
         else:
