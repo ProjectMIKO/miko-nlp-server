@@ -9,7 +9,7 @@ def get_keyword():
     try:
         print("\n키워드 요청 시작")
         data = request.json
-        print(f"요청 데이터: {data}")
+        # print(f"요청 데이터: {data}")
 
         # conversations에서 user와 content 추출 및 문자열 결합
         conversations = data.get('conversations', {})
