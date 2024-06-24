@@ -18,11 +18,12 @@ def get_keyword():
             for message in conv_list:
                 user = message.get('user', '')
                 content = message.get('content', '')
-                combined_message = f"speaker({user}): {content}."
+                combined_message = f"speaker({user}): {content}/"
                 messages.append(combined_message)
 
         # 모든 메시지를 하나의 문자열로 결합
         user_message = ' '.join(messages)
+        print(f"user_message: {user_message}")
 
         if not user_message:
             return jsonify({"error": "메시지가 제공되지 않았습니다."}), 400
