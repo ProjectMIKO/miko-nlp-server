@@ -3,19 +3,22 @@ from dotenv import load_dotenv
 import json
 import requests
 import time
+import threading
 
 # .env 파일 로드
 load_dotenv()
 
 access_token = None
 token_expiry_time = None
+token_lock = threading.Lock()
 
 
 def get_access_token():
     print("\n리턴제로 토큰 요청 시작")
     global access_token, token_expiry_time
-    if access_token and token_expiry_time and time.time() < token_expiry_time:
-        return access_token
+    with token_lock:
+        if access_token and token_expiry_time and time.time() < token_expiry_time:
+            return access_token
 
     client_id = os.getenv("RT_CLIENT_ID")
     client_secret = os.getenv("RT_CLIENT_SECRET")
