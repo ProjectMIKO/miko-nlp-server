@@ -41,6 +41,7 @@ def request_text(file):
         access_token = get_access_token()
 
         config = {
+            'domain': 'CALL',
             "use_diarization": False,
             "use_itn": True,
             "use_disfluency_filter": False,
