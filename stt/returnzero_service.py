@@ -14,7 +14,6 @@ token_lock = threading.Lock()
 
 
 def get_access_token():
-    print("\n리턴제로 토큰 요청 시작")
     global access_token, token_expiry_time
     with token_lock:
         if access_token and token_expiry_time and time.time() < token_expiry_time:
@@ -29,6 +28,7 @@ def get_access_token():
             'client_secret': client_secret
         }
     )
+    print("\n리턴제로 토큰 재발급")
     auth_resp.raise_for_status()
     access_token = auth_resp.json()['access_token']
     token_expiry_time = time.time() + 3600 * 6  # assuming token is valid for 6 hour
@@ -88,6 +88,8 @@ def request_text(file):
                 time.sleep(5)
 
     except requests.RequestException as e:
+        print(f'Request error: {str(e)}')
         return 500, f"Request error: {str(e)}"
     except Exception as e:
+        print(f'Unexpected error: {str(e)}')
         return 500, f"Unexpected error: {str(e)}"

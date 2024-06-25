@@ -43,6 +43,7 @@ def worker():
             status, response_data = returnzero_service.request_text(file)
             response_queue.put(request_id, (status, response_data))
         except Exception as e:
+            print(f"Error: {str(e)}")
             response_queue.put(request_id, (500, str(e)))
         finally:
             request_queue.task_done()
