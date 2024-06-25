@@ -6,7 +6,7 @@ myenv/
 instance/
 *.pyc
 __pycache__/
-.env
+.env*
 
 # Ignore IDE files
 .vscode/
