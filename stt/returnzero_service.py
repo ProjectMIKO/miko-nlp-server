@@ -87,9 +87,49 @@ def request_text(file):
             else:
                 time.sleep(5)
 
+
     except requests.RequestException as e:
-        print(f'Request error: {str(e)}')
-        return 500, f"Request error: {str(e)}"
+
+        if e.response is not None:
+            status_code = e.response.status_code
+            error_code = e.response.json().get('code', 'Unknown error code')
+
+            if status_code == 400:
+                print(f'잘못된 파라미터 요청: {error_code}')
+                return status_code, f"Bad request: {error_code}"
+
+            elif status_code == 401:
+                print(f'유효하지 않은 토큰: {error_code}')
+                return status_code, f"Unauthorized: {error_code}"
+
+            elif status_code == 403:
+                print(f'권한 없음: {error_code}')
+                return status_code, f"Forbidden: {error_code}"
+
+            elif status_code == 404:
+                print(f'전사 결과 없음: {error_code}')
+                # return status_code, f"Not found: {error_code}"
+
+            elif status_code == 410:
+                print(f'전사 결과 만료됨: {error_code}')
+                return status_code, f"Gone: {error_code}"
+
+            elif status_code == 429:
+                print(f'요청 제한 초과: {error_code}')
+                return status_code, f"Too many requests: {error_code}"
+
+            elif status_code == 500:
+                print(f'서버 오류: {error_code}')
+                return status_code, f"Server error: {error_code}"
+
+            else:
+                print(f'Unexpected status code {status_code}: {error_code}')
+                return status_code, f"Unexpected error: {error_code}"
+
+        else:
+            print(f'Request error: {str(e)}')
+            return 500, f"Request error: {str(e)}"
+
     except Exception as e:
         print(f'Unexpected error: {str(e)}')
         return 500, f"Unexpected error: {str(e)}"
