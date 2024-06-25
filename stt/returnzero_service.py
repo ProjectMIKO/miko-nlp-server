@@ -85,7 +85,7 @@ def request_text(file):
             elif status_data['status'] == 'failed':
                 return status_resp.status_code, "Transcription failed"
             else:
-                time.sleep(5)
+                time.sleep(1)
 
 
     except requests.RequestException as e:
