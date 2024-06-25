@@ -14,7 +14,7 @@ load_dotenv()
 
 # 동시 요청 수를 관리하기 위한 큐와 변수
 request_queue = queue.Queue()
-MAX_CONCURRENT_REQUESTS = os.getenv("MAX_CONCURRENT_REQUESTS", 1)
+MAX_CONCURRENT_REQUESTS = int(os.getenv("MAX_CONCURRENT_REQUESTS", 1))
 lock = threading.Lock()
 
 
