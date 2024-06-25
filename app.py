@@ -3,7 +3,14 @@ from flask_cors import CORS
 from nlp_keyword.controller import keyword
 from stt.controller import stt
 
+import os
+from dotenv import load_dotenv
+
 import locale
+
+# .env 파일 로드
+load_dotenv()
+print(f'env: {os.getenv("FLASK_ENV", "FLASK_ENV is NULL")}')
 
 locale.setlocale(locale.LC_ALL, 'en_US.UTF-8')
 
