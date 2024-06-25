@@ -1,3 +1,5 @@
+import os
+from dotenv import load_dotenv
 from flask import Blueprint, request, jsonify
 import stt.returnzero_service as returnzero_service
 import threading
@@ -7,9 +9,12 @@ import time
 
 stt = Blueprint('stt', __name__)
 
+# .env 파일 로드
+load_dotenv()
+
 # 동시 요청 수를 관리하기 위한 큐와 변수
 request_queue = queue.Queue()
-MAX_CONCURRENT_REQUESTS = 10
+MAX_CONCURRENT_REQUESTS = os.getenv("MAX_CONCURRENT_REQUESTS", 1)
 lock = threading.Lock()
 
 
