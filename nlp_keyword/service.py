@@ -2,7 +2,6 @@ from openai import AsyncOpenAI
 from config import OPENAI_API_KEY
 from util.cost_calculator import calculate_cost
 import json
-import aiohttp
 
 client = AsyncOpenAI(api_key=OPENAI_API_KEY)
 
