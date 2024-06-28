@@ -1,12 +1,12 @@
-from openai import OpenAI
+from openai import AsyncOpenAI
 from config import OPENAI_API_KEY
 from util.cost_calculator import calculate_cost
 import json
 
-client = OpenAI(api_key=OPENAI_API_KEY)
+client = AsyncOpenAI(api_key=OPENAI_API_KEY)
 
 
-def process_message(user_message):
+async def process_message(user_message):
     print("\nGPT 키워드 요청 시작")
     # GPT 모델에 요약 요청
     prompt = f"""
@@ -26,7 +26,7 @@ def process_message(user_message):
             "{user_message}"
             """
 
-    chat_completion = client.chat.completions.create(
+    chat_completion = await client.chat.completions.create(
         messages=[
             {"role": "system", "content": "You are a meeting summarization bot."},
             {"role": "user", "content": prompt}
