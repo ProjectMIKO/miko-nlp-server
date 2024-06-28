@@ -1,5 +1,6 @@
 from flask import Blueprint, request, jsonify
 import nlp_keyword.service as service
+import asyncio
 
 keyword = Blueprint('nlp_keyword', __name__)
 
@@ -28,10 +29,14 @@ def get_keyword():
         if not user_message:
             return jsonify({"error": "메시지가 제공되지 않았습니다."}), 400
 
-        keyword, subtitle, cost = service.process_message(user_message)
+        # 비동기 서비스 호출
+        loop = asyncio.new_event_loop()
+        asyncio.set_event_loop(loop)
+        keyword, subtitle, cost = loop.run_until_complete(service.process_message(user_message))
         print(f"키워드: {keyword}")
         # print(f"소제목: {subtitle}")
         return jsonify({"keyword": keyword, "subtitle": subtitle, "cost": cost}), 200
 
     except Exception as e:
+        print(f"에러: {str(e)}")
         return jsonify({"error": str(e)}), 500
