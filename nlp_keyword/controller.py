@@ -41,7 +41,7 @@ def get_keyword():
             "sub": sub
         }
 
-        return jsonify({response}), 200
+        return jsonify(response), 200
 
     except Exception as e:
         print(f"에러: {str(e)}")
