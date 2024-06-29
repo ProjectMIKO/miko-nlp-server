@@ -17,8 +17,8 @@ def get_keyword():
         for conv_id, conv_list in conversations.items():
             for message in conv_list:
                 user = message.get('user', '')
-                content = message.get('content', '')
-                combined_message = f"speaker({user}): {content}/"
+                script = message.get('script', '')
+                combined_message = f"speaker({user}): {script}/"
                 messages.append(combined_message)
 
         # 모든 메시지를 하나의 문자열로 결합
