@@ -108,7 +108,7 @@ def request_text(file):
 
             elif status_code == 404:
                 print(f'전사 결과 없음: {error_code}')
-                # return status_code, f"Not found: {error_code}"
+                return status_code, f"Not found: {error_code}"
 
             elif status_code == 410:
                 print(f'전사 결과 만료됨: {error_code}')
