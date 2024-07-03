@@ -6,6 +6,7 @@ import threading
 import queue
 import uuid
 import time
+import io
 
 stt = Blueprint('stt', __name__)
 
@@ -38,8 +39,10 @@ response_queue = ResponseQueue()
 
 def worker():
     while True:
-        request_id, file = request_queue.get()
+        request_id, file_content = request_queue.get()
         try:
+            # 파일 객체 생성
+            file = io.BytesIO(file_content)
             status, response_data = returnzero_service.request_text(file)
             response_queue.put(request_id, (status, response_data))
         except Exception as e:
@@ -65,8 +68,12 @@ def speech_to_text():
         return jsonify({'text': 'Error: No selected file'}), 400
 
     if file:
+        # 파일을 메모리에 임시 저장
+        file_content = file.read()
+        file.seek(0)
+
         request_id = str(uuid.uuid4())
-        request_queue.put((request_id, file))
+        request_queue.put((request_id, file_content))
 
         while True:
             response = response_queue.get(request_id)
