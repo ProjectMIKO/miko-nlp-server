@@ -10,26 +10,46 @@ async def process_message(user_message):
     print("\nGPT 키워드 요청 시작")
     # GPT 모델에 요약 요청
     prompt = f""" You are a meeting summarization bot. Your main task is to read the conversation, generate a very 
-    short title as a keyword, and summarize the content into key points under the corresponding topics. Here is an 
-    example of a conversation and the desired output format:
+    short title as a keyword, and summarize the content into key points under the corresponding topics. There can be multiple mains and multiple subs.
+    Here is an example of a conversation and the desired output format:
             
-    Example conversation: "준호: 봇을 만들고 있는데 프롬포트를 더 다듬어주라. 윤아: 프롬포트를 어떻게 수정하고 싶어? 준호: 사용자에게 더 명확하게 지시할 수 있도록 하고 
-    싶어. 민수: 그래, 사용자가 이해하기 쉽게 간결하게 쓰는게 중요하지. 윤아: 맞아, 너무 길면 오히려 혼란스러울 수 있어."
+    Example conversation: "준호: 우리 여행 가자. 윤아: 어디로 가고 싶어? 준호: 대구나 대전 어때? 민수: 난 대전가서 성심당 갈래. 윤아: 성심당 괜찮네. 근데 나 배고파.
+    준호: 그럼 점심 뭐 먹을까? 민수: 난 치킨이나 피자. 윤아: 난 국밥먹고싶어. 준호: 그럼 가까운 한우곰탕이나 먹으러가자. 민수: 그럼 그러자. 그럼 대전에서 어디 또 갈까?
+    윤아: 식장산 야경이 유명하대. 식장산 가자."
     
     Desired JSON output:
     {{
-      "main": {{
-        "keyword": "봇 프롬포트 수정 회의",
-        "subject": "봇 프롬포트 수정에 관한 이야기를 함"
-      }},
-      "sub": [
+      "idea": [
         {{
-          "keyword": "프롬포트 다듬기",
-          "subject": "사용자에게 명확한 지시를 위한 수정 필요성 언급"
+          "main": {{
+            "keyword": "여행 계획",
+            "subject": "여행 장소 및 관광지 회의"
+          }},
+          "sub": [
+            {{
+              "keyword": "장소에 대한 회의",
+              "subject": "대구 혹은 대전으로 여행"
+            }},
+            {{
+              "keyword": "대전의 관광지 결정",
+              "subject": "성심당과 식장산을 방문하기로 함"
+            }}
+          ]
         }},
-        {{
-          "keyword": "간결하고 이해하기 쉽게",
-          "subject": "간결하고 이해하기 쉽게 작성할 필요성 강조"
+          "main": {{
+            "keyword": "점심 식사",
+            "subject": "점심 식사에 관한 회의"
+          }},
+          "sub": [
+            {{
+              "keyword": "메뉴에 대한 고민",
+              "subject": "치킨, 피자, 국밥 등의 메뉴"
+            }},
+            {{
+              "keyword": "점심 식사 결정",
+              "subject": "가까운 한우곰탕에서 먹기로 결정"
+            }}
+          ]
         }}
       ]
     }}
@@ -48,8 +68,7 @@ async def process_message(user_message):
 
     response_message = json.loads(chat_completion.choices[0].message.content.strip())
 
-    main = response_message.get("main", {})
-    sub = response_message.get("sub", [])
+    idea = response_message.get("idea", [])
 
     # print(f"요청 내용: \n{user_message}")
     # gpt 요청 비용 계산
@@ -58,4 +77,4 @@ async def process_message(user_message):
     # print(f"소제목: {subtitle}")
     # print(f"Cost: ${cost:.5f}")
 
-    return main, sub, cost
+    return idea, cost

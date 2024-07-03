@@ -41,16 +41,13 @@ def request_text(file):
         access_token = get_access_token()
 
         config = {
-            "model_name": "whisper",
-            "language": "ko",
-            "domain": "GENERAL",
+            'domain': 'CALL',
             "use_diarization": False,
             "use_itn": True,
             "use_disfluency_filter": False,
             "use_profanity_filter": False,
             "use_paragraph_splitter": False,
-            "paragraph_splitter": {"max": 50},
-            "use_word_timestamp": False,
+            "paragraph_splitter": {"max": 50}
         }
 
         file.seek(0)

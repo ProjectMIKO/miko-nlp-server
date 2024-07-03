@@ -31,14 +31,12 @@ def get_keyword():
         # 비동기 서비스 호출
         loop = asyncio.new_event_loop()
         asyncio.set_event_loop(loop)
-        main, sub, cost = loop.run_until_complete(service.process_message(user_message))
-        print(f"메인 키워드: {main}")
-        print(f"서브 키워드: {sub}")
+        idea, cost = loop.run_until_complete(service.process_message(user_message))
+        print(f"아이디어 리스트: {idea}")
         print(f"요청 비용: ${cost:.5f}")
 
         response = {
-            "main": main,
-            "sub": sub
+            "idea": idea,
         }
 
         return jsonify(response), 200
