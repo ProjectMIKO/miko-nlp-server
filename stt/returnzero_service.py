@@ -53,7 +53,7 @@ def request_text(file):
         file.seek(0)
         files = {
             'config': (None, json.dumps(config), 'application/json'),
-            'file': ("audio.wav", file, file.content_type)
+            'file': ("audio.wav", file, "audio/wav")
         }
 
         transcribe_resp = requests.post(
