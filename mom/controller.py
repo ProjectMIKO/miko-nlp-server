@@ -13,7 +13,7 @@ load_dotenv()
 @mom.route('/', methods=['POST'])
 def get_mom():
     try:
-        print("\nGPT MOM 요청 시작")
+        print("\nMOM 요청 시작")
         data = request.json
 
         conversations = data.get('conversations', [])
