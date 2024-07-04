@@ -35,7 +35,7 @@ def get_mom():
         print(f"요청 비용: ${cost:.5f}")
 
         response = {
-            "meeting_notes": meeting_notes,
+            "mom": meeting_notes,
         }
 
         return jsonify(response), 200
