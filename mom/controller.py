@@ -16,21 +16,30 @@ def get_mom():
         print("\nMOM 요청 시작")
         data = request.json
 
-        conversations = data.get('conversations', [])
+        conversations = {conv['id']: conv for conv in data.get('conversations', [])}
         vertexes = data.get('vertexes', [])
 
-        # 메시지 구성
-        user_message = ' '.join([f"speaker({conv['user']}): {conv['script']}" for conv in conversations])
-        vertex_message = ' '.join([f"vertex({vertex['keyword']}): {vertex['subject']}" for vertex in vertexes])
+        # 각 vertex에 대해 메시지를 구성
+        messages = []
+        for vertex in vertexes:
+            keyword = vertex['keyword']
+            subject = vertex['subject']
+            conversation_ids = vertex['conversationIds']
 
-        combined_message = f"{user_message} {vertex_message}"
-        print(f"combined_message: {combined_message}")
+            related_conversations = [f"speaker({conversations[cid]['user']}): {conversations[cid]['script']}" for cid in
+                                     conversation_ids]
+            combined_conversations = " ".join(related_conversations)
 
-        if not combined_message:
+            message = f"keyword({keyword}): {subject}\nconversations: [{combined_conversations}]"
+            messages.append(message)
+
+        print(f"messages: {messages}")
+
+        if not messages:
             return jsonify({"error": "메시지가 제공되지 않았습니다."}), 400
 
         # 비동기 서비스 호출
-        meeting_notes, cost = asyncio.run(service.process_message(combined_message))
+        meeting_notes, cost = asyncio.run(service.process_message(messages))
         print(f"회의록: {meeting_notes}")
         print(f"요청 비용: ${cost:.5f}")
 
