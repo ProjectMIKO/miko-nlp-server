@@ -2,6 +2,7 @@ from flask import Flask, request
 from flask_cors import CORS
 from nlp_keyword.controller import keyword
 from stt.controller import stt
+from mom.controller import mom
 
 import os
 from dotenv import load_dotenv
@@ -26,6 +27,7 @@ def handle_options_request():
 
 app.register_blueprint(keyword, url_prefix='/api/keyword')
 app.register_blueprint(stt, url_prefix='/api/stt')
+app.register_blueprint(mom, url_prefix='/api/mom')
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000, debug=True)
