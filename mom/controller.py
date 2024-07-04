@@ -30,10 +30,10 @@ def get_mom():
                                      conversation_ids]
             combined_conversations = " ".join(related_conversations)
 
-            message = f"keyword({keyword}): {subject}\nconversations: [{combined_conversations}]"
+            message = f"keyword({keyword}): {subject} \n conversations: [{combined_conversations}]"
             messages.append(message)
 
-        print(f"messages: {messages}")
+        # print(f"messages: {messages}")
 
         if not messages:
             return jsonify({"error": "메시지가 제공되지 않았습니다."}), 400
