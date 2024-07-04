@@ -16,7 +16,7 @@ def get_mom():
         print("\nMOM 요청 시작")
         data = request.json
 
-        conversations = {conv['id']: conv for conv in data.get('conversations', [])}
+        conversations = {conv['_id']: conv for conv in data.get('conversations', [])}
         vertexes = data.get('vertexes', [])
 
         # 각 vertex에 대해 메시지를 구성
