@@ -1,6 +1,7 @@
 from openai import AsyncOpenAI
 from config import OPENAI_API_KEY
 from util.cost_calculator import calculate_cost
+import tiktoken
 
 client = AsyncOpenAI(api_key=OPENAI_API_KEY)
 
@@ -12,7 +13,7 @@ async def process_message(messages):
     cost = 0.0
 
     # 메시지를 토큰 수 제한 내에서 분할
-    chunks = split_message_into_chunks(messages, max_tokens=16385)
+    chunks = split_message_into_chunks(messages, max_tokens=13000)
 
     # GPT 모델에 요약 요청
     for chunk in chunks:
@@ -55,12 +56,13 @@ async def process_message(messages):
 
 
 def split_message_into_chunks(messages, max_tokens):
+    enc = tiktoken.encoding_for_model("gpt-3.5-turbo")
     chunks = []
     current_chunk = []
     current_length = 0
 
     for message in messages:
-        message_length = len(message.split())
+        message_length = len(enc.encode(message))
 
         if current_length + message_length > max_tokens:
             chunks.append("\n".join(current_chunk))
