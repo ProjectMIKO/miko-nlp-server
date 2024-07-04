@@ -18,20 +18,25 @@ async def process_message(messages):
     # GPT 모델에 요약 요청
     for chunk in chunks:
         prompt = f""" You are a meeting summarization bot. Your main task is to read the conversation, generate a 
-        detailed meeting note in markdown format. Here is an example of a conversation and the desired output format:
+        detailed meeting note body in markdown format in korean. do not write title. do not write conversation just 
+        write details Here is an example of a conversation and the desired output format:
     
-        Example conversation: "speaker(준호): 우리 여행 가자. speaker(윤아): 어디로 가고 싶어? speaker(준호): 대구나 대전 어때? speaker(민수): 난 대전가서 
-        성심당 갈래. speaker(윤아): 성심당 괜찮네. 근데 나 배고파. speaker(준호): 그럼 점심 뭐 먹을까? speaker(민수): 난 치킨이나 피자. speaker(윤아): 난 국밥먹고싶어. 
-        speaker(준호): 그럼 가까운 한우곰탕이나 먹으러가자. speaker(민수): 그럼 그러자. 그럼 대전에서 어디 또 갈까? speaker(윤아): 식장산 야경이 유명하대. 식장산 가자."
+        Example conversation:
+        keyword(여행 계획): 여행 장소 및 관광지 회의 \n conversations: [speaker(준호): 우리 여행 가자. speaker(윤아): 
+        어디로 가고 싶어? speaker(준호): 대구 혹은 대전으로 가자. speaker(윤아): 그럼 성심당과 식장산을 방문하자.]
+        keyword(점심 식사): 점심 식사에 관한 회의 \n conversations: [speaker(준호): 점심 뭐 먹을까? speaker(민수): 난 치킨이나 피자. speaker(윤아): 난 
+        국밥이나 냉면. speaker(준호): 가까운 한우곰탕 어때? speaker(민수): 좋아.]
     
         Desired Markdown output:
         ## 여행 계획
-        - **주요 토픽**: 여행 장소 및 관광지 회의
-        - **주요 내용**: 대구 혹은 대전으로 여행, 성심당과 식장산을 방문하기로 함
+        여행 장소 및 관광지 회의
+        - 대구 혹은 대전으로 여행
+        - 성심당과 식장산을 방문하기로 함
     
         ## 점심 식사
-        - **주요 토픽**: 점심 식사에 관한 회의
-        - **주요 내용**: 치킨, 피자, 국밥 등의 메뉴, 가까운 한우곰탕에서 먹기로 결정
+        점심 식사에 관한 회의
+        - 치킨, 피자, 국밥 등의 메뉴
+        - 가까운 한우곰탕에서 먹기로 결정
     
         Conversation to summarize:
         "{chunk}"
@@ -50,7 +55,7 @@ async def process_message(messages):
         # gpt 요청 비용 계산
         cost += calculate_cost(chat_completion)
 
-    combined_mom = "\n".join(mom)
+    combined_mom = "\n\n".join(mom)
 
     return combined_mom, cost
 
