@@ -33,6 +33,11 @@ def get_mom():
             message = f"keyword({keyword}): {subject} \n conversations: [{combined_conversations}]"
             messages.append(message)
 
+        if not vertexes:
+            for conv_id, conversation in conversations.items():
+                message = f"speaker({conversation['user']}): {conversation['script']}"
+                messages.append(message)
+
         # print(f"messages: {messages}")
 
         if not messages:
