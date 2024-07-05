@@ -41,7 +41,6 @@ async def process_message(messages):
         Conversation to summarize:
         "{chunk}"
         """
-        print(chunk)
         chat_completion = await client.chat.completions.create(
             messages=[
                 {"role": "system", "content": "You are a meeting summarization bot."},

@@ -36,7 +36,6 @@ def get_mom():
         if not vertexes:
             message = f"keyword(없음): 없음 \n conversations: ["
             for conv_id, conversation in conversations.items():
-                print(conversation)
                 message += f"speaker({conversation['user']}): {conversation['script']} "
             message += "]"
             messages.append(message)
