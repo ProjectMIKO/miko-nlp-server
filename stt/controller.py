@@ -6,7 +6,6 @@ import threading
 import queue
 import uuid
 import time
-import io
 import torchaudio
 from util.converter import convert_to_wav
 from stt.audio_processing.pre_processing import process_audio
@@ -47,8 +46,10 @@ def worker():
             # 파일을 wav로 변환
             wav_stream = convert_to_wav(file_content)
 
-            # torchaudio로 로드
-            waveform, sample_rate = torchaudio.load(wav_stream)
+            # 메모리에서 torchaudio로 로드
+            wav_stream.seek(0)
+            waveform, sample_rate = torchaudio.load(wav_stream, format='wav')
+
             processed_waveform = process_audio(waveform, sample_rate)
 
             # 리턴제로 서비스 요청

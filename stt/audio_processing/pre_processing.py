@@ -1,4 +1,4 @@
-import sys
+import io
 import time
 import torch
 import torchaudio
@@ -81,10 +81,8 @@ def smooth_amplify(waveform, sample_rate, threshold, gain, sustain_time, fade_le
     return smoothed_waveform
 
 
-def normalize_audio(file_path, target_dB=-20.0, threshold=-30.0, gain=5.0, sustain_time=0.03, fade_length=15,
+def normalize_audio(waveform, sample_rate, target_dB=-20.0, threshold=-30.0, gain=5.0, sustain_time=0.03, fade_length=15,
                     peak_limit=0.9):
-    waveform, sample_rate = load_audio(file_path)
-
     # DC 오프셋 제거
     waveform = correct_dc_offset(waveform)
 
@@ -198,11 +196,15 @@ def process_audio(input_waveform, sample_rate):
 
     # Step 2: Noise Reduction
     denoised_waveform, sample_rate = remove_noise(normalized_waveform, sample_rate)
-
     # Step 3: Equalize
     equalized_waveform, sample_rate = equalize_audio(denoised_waveform, sample_rate)
 
     duration = time.time() - start_time
-    print(duration)
+    print(f"Processing time: {duration:.2f}s")
 
-    return equalized_waveform
+    # 전처리된 오디오를 다시 wav 형식의 BytesIO로 변환
+    buffer = io.BytesIO()
+    torchaudio.save(buffer, equalized_waveform, sample_rate, format="wav")
+    buffer.seek(0)
+
+    return buffer
