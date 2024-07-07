@@ -18,7 +18,7 @@ async def process_message(messages):
     # GPT 모델에 요약 요청
     for chunk in chunks:
         prompt = f""" You are a meeting summarization bot. Your main task is to read the conversation, generate a 
-        detailed meeting note body in markdown format in korean. do not write title. do not write conversation just 
+        detailed meeting note body in html format in korean. do not write title. do not write conversation just 
         write details Here is an example of a conversation and the desired output format:
     
         Example conversation:
@@ -28,15 +28,18 @@ async def process_message(messages):
         국밥이나 냉면. speaker(준호): 가까운 한우곰탕 어때? speaker(민수): 좋아.]
     
         Desired Markdown output:
-        ## 여행 계획
+        <h2> 여행 계획 </h2>
         여행 장소 및 관광지 회의
-        - 대구 혹은 대전으로 여행
-        - 성심당과 식장산을 방문하기로 함
+        <ul>
+            <li> 대구 혹은 대전으로 여행 </li>
+            <li> 성심당과 식장산을 방문하기로 함 </li>
+        </ul>
     
-        ## 점심 식사
+        <h2> 점심 식사 </h2>
         점심 식사에 관한 회의
-        - 치킨, 피자, 국밥 등의 메뉴
-        - 가까운 한우곰탕에서 먹기로 결정
+        <ul>
+            <li> 치킨, 피자, 국밥 등의 메뉴 </li>
+            <li> 가까운 한우곰탕에서 먹기로 결정 </li>
     
         Conversation to summarize:
         "{chunk}"
