@@ -181,8 +181,8 @@ def equalize_audio(input_waveform, sample_rate):
     # 음량 조정
     waveform_filtered = volume_up_peak(torch.tensor(waveform_filtered, dtype=torch.float32))
 
-    # tensor로 다시 변환 (float32 형식 유지)
-    filtered_waveform = torch.tensor(waveform_filtered, dtype=torch.float32)
+    # tensor로 다시 변환
+    filtered_waveform = waveform_filtered.clone().detach().requires_grad_(False)
 
     return filtered_waveform, sample_rate
 
