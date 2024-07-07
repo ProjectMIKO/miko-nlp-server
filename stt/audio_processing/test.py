@@ -1,9 +1,21 @@
 import torchaudio
+import logging
+import os
 
-# torchaudio 백엔드를 설정하지 않아도 기본적으로 작동하는지 확인
-torchaudio.set_audio_backend("sox_io")
-print(torchaudio.get_audio_backend())
+# 디버깅 로그 활성화
+logging.basicConfig(level=logging.DEBUG)
+
+# FFmpeg 경로 확인
+ffmpeg_path = os.popen('which ffmpeg').read().strip()
+print(f"FFmpeg path: {ffmpeg_path}")
+
+# torchaudio 백엔드 확인
+print("Current audio backend:", torchaudio.get_audio_backend())
 
 # 샘플 wav 파일을 로드하여 ffmpeg가 제대로 작동하는지 확인합니다.
-waveform, sample_rate = torchaudio.load("stt/audio_processing/aa.wav")
-print(waveform.shape, sample_rate)
+try:
+    waveform, sample_rate = torchaudio.load("stt/audio_processing/aa.wav")
+    print("Waveform shape:", waveform.shape)
+    print("Sample rate:", sample_rate)
+except Exception as e:
+    print(f"Error loading audio file: {e}")
