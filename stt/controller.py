@@ -6,7 +6,9 @@ import threading
 import queue
 import uuid
 import time
-import io
+import torchaudio
+from util.converter import convert_to_wav
+from stt.audio_processing.pre_processing import process_audio
 
 stt = Blueprint('stt', __name__)
 
@@ -41,9 +43,17 @@ def worker():
     while True:
         request_id, file_content = request_queue.get()
         try:
-            # 파일 객체 생성
-            file = io.BytesIO(file_content)
-            status, response_data = returnzero_service.request_text(file)
+            # 파일을 wav로 변환
+            wav_stream = convert_to_wav(file_content)
+
+            # 메모리에서 torchaudio로 로드
+            wav_stream.seek(0)
+            waveform, sample_rate = torchaudio.load(wav_stream, format='wav')
+
+            processed_waveform = process_audio(waveform, sample_rate)
+
+            # 리턴제로 서비스 요청
+            status, response_data = returnzero_service.request_text(processed_waveform)
             response_queue.put(request_id, (status, response_data))
         except Exception as e:
             print(f"Error: {str(e)}")
