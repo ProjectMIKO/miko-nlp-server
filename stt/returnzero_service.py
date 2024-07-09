@@ -44,7 +44,7 @@ def request_text(file):
             'domain': 'CALL',
             "use_diarization": False,
             "use_itn": True,
-            "use_disfluency_filter": True,
+            "use_disfluency_filter": False,
             "use_profanity_filter": False,
             "use_paragraph_splitter": False,
             "paragraph_splitter": {"max": 50}
