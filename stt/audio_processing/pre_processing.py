@@ -167,6 +167,10 @@ def equalize_audio(input_waveform, sample_rate):
     # 300~500Hz 영역 감소 (울림/반사음 필터)
     waveform_filtered = band_stop_filter(waveform_filtered, sample_rate, 300, 500)
 
+    # 2kHz ~ 4kHz 영역 부스트 (자음 영역)
+    boosted_2_4kHz = band_pass_filter(waveform_filtered, sample_rate, 2000, 4000, gain=1.0)
+    waveform_filtered += boosted_2_4kHz
+
     # 4~6kHz 영역 부스트 (명료함 부스트)
     boosted_4_6kHz = band_pass_filter(waveform_filtered, sample_rate, 4000, 6000, gain=2.0)
     waveform_filtered += boosted_4_6kHz
