@@ -40,6 +40,7 @@ async def process_message(messages):
         <ul>
             <li> 치킨, 피자, 국밥 등의 메뉴 </li>
             <li> 가까운 한우곰탕에서 먹기로 결정 </li>
+        </ul>
     
         Conversation to summarize:
         "{chunk}"
