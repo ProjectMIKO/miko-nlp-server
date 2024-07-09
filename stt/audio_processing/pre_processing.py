@@ -172,7 +172,7 @@ def equalize_audio(input_waveform, sample_rate):
     waveform_filtered += boosted_4_6kHz
 
     # 6~10kHz 영역 부스트 (치찰음 부스트)
-    boosted_6_8kHz = band_pass_filter(waveform_filtered, sample_rate, 6000, 8000, gain=1.0)
+    boosted_6_8kHz = band_pass_filter(waveform_filtered, sample_rate, 6000, 8000, gain=0.5)
     waveform_filtered += boosted_6_8kHz
 
     # 10~20kHz 로우패스 필터
