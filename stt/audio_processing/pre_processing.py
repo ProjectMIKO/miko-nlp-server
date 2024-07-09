@@ -201,14 +201,14 @@ def process_audio(input_waveform, sample_rate):
     # Step 2: Noise Reduction
     denoised_waveform, sample_rate = remove_noise(normalized_waveform, sample_rate)
     # Step 3: Equalize
-    equalized_waveform, sample_rate = equalize_audio(denoised_waveform, sample_rate)
+    # equalized_waveform, sample_rate = equalize_audio(denoised_waveform, sample_rate)
 
     duration = time.time() - start_time
     print(f"Processing time: {duration:.2f}s")
 
     # 전처리된 오디오를 다시 wav 형식의 BytesIO로 변환
     buffer = io.BytesIO()
-    torchaudio.save(buffer, equalized_waveform, sample_rate, format="wav")
+    torchaudio.save(buffer, denoised_waveform, sample_rate, format="wav")
     buffer.seek(0)
 
     return buffer
