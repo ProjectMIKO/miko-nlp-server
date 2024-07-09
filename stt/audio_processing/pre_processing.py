@@ -162,7 +162,7 @@ def equalize_audio(input_waveform, sample_rate):
     waveform_filtered = high_pass_filter(waveform_filtered, sample_rate, 100)
 
     # 100~300Hz 영역 감소 (저역 필터)
-    waveform_filtered += band_pass_filter(waveform_filtered, sample_rate, 100, 300, gain=1.0)
+    waveform_filtered += band_pass_filter(waveform_filtered, sample_rate, 100, 300, gain=0.8)
 
     # 300~500Hz 영역 감소 (울림/반사음 필터)
     waveform_filtered = band_stop_filter(waveform_filtered, sample_rate, 300, 500)
@@ -201,14 +201,14 @@ def process_audio(input_waveform, sample_rate):
     # Step 2: Noise Reduction
     denoised_waveform, sample_rate = remove_noise(normalized_waveform, sample_rate)
     # Step 3: Equalize
-    # equalized_waveform, sample_rate = equalize_audio(denoised_waveform, sample_rate)
+    equalized_waveform, sample_rate = equalize_audio(denoised_waveform, sample_rate)
 
     duration = time.time() - start_time
     print(f"Processing time: {duration:.2f}s")
 
     # 전처리된 오디오를 다시 wav 형식의 BytesIO로 변환
     buffer = io.BytesIO()
-    torchaudio.save(buffer, denoised_waveform, sample_rate, format="wav")
+    torchaudio.save(buffer, equalized_waveform, sample_rate, format="wav")
     buffer.seek(0)
 
     return buffer
