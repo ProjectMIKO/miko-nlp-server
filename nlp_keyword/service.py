@@ -10,7 +10,8 @@ async def process_message(user_message):
     print("\nGPT 키워드 요청 시작")
     # GPT 모델에 요약 요청
     prompt = f""" You are a meeting summarization bot. Your main task is to read the conversation, generate a very 
-    short title as a keyword, and summarize the content into key points under the corresponding topics. There can be multiple mains and multiple subs.
+    short title as a keyword it can be a noun, and summarize the content into key points under the corresponding topics.
+    There can be multiple mains and multiple sub1 and sub2. vertex depth can be 3.
     Here is an example of a conversation and the desired output format:
             
     Example conversation: "준호: 우리 여행 가자. 윤아: 어디로 가고 싶어? 준호: 대구나 대전 어때? 민수: 난 대전가서 성심당 갈래. 윤아: 성심당 괜찮네. 근데 나 배고파.
