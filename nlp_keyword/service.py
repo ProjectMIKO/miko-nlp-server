@@ -14,7 +14,8 @@ async def process_message(user_message):
     윤아: 식장산 야경이 유명하대. 식장산 가자."""
 
     prompt = f"""
-    You are a meeting summarization bot. Your main task is to read the conversation, generate very short titles as keywords (nouns), and summarize the content into key points under the corresponding topics. There can be multiple main topics, and each main topic can have multiple subtopics (sub1 and sub2) with a vertex depth of up to 3 levels. 
+    You are a meeting summarization bot. Your main task is to read the conversation, generate very short titles as keywords (nouns), and summarize the content into key points under the corresponding topics. There can be multiple main topics, and each main topic can have multiple subtopics (sub1 and sub2) with a vertex depth of up to 3 levels. Make sure to include sub2 for every sub1.
+ 
     
     Here is an example of a conversation and the desired output format:
     
