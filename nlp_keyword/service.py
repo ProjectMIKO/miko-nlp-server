@@ -25,29 +25,74 @@ async def process_message(user_message):
             "keyword": "여행 계획",
             "subject": "여행 장소 및 관광지 회의"
           }},
-          "sub": [
+          "sub1": [
             {{
               "keyword": "장소에 대한 회의",
-              "subject": "대구 혹은 대전으로 여행"
+              "subject": "대구 혹은 대전으로 여행",
+              "sub2": [
+                {{
+                  "keyword": "대구",
+                  "subject": "대구의 명소 및 관광지"
+                }},
+                {{
+                  "keyword": "대전",
+                  "subject": "대전의 명소 및 관광지"
+                }}
+              ]
             }},
             {{
               "keyword": "대전의 관광지 결정",
-              "subject": "성심당과 식장산을 방문하기로 함"
+              "subject": "성심당과 식장산을 방문하기로 함",
+              "sub2": [
+                {{
+                  "keyword": "성심당",
+                  "subject": "대전 성심당 빵집"
+                }},
+                {{
+                  "keyword": "식장산",
+                  "subject": "대전 식장산 전망대"
+                }}
+              ]
             }}
           ]
         }},
+        {{
           "main": {{
             "keyword": "점심 식사",
             "subject": "점심 식사에 관한 회의"
           }},
-          "sub": [
+          "sub1": [
             {{
               "keyword": "메뉴에 대한 고민",
-              "subject": "치킨, 피자, 국밥 등의 메뉴"
+              "subject": "치킨, 피자, 국밥 등의 메뉴",
+              "sub2": [
+                {{
+                  "keyword": "치킨",
+                  "subject": "치킨의 종류와 맛집"
+                }},
+                {{
+                  "keyword": "피자",
+                  "subject": "피자의 종류와 맛집"
+                }},
+                {{
+                  "keyword": "국밥",
+                  "subject": "국밥의 종류와 맛집"
+                }}
+              ]
             }},
             {{
               "keyword": "점심 식사 결정",
-              "subject": "가까운 한우곰탕에서 먹기로 결정"
+              "subject": "가까운 한우곰탕에서 먹기로 결정",
+              "sub2": [
+                {{
+                  "keyword": "한우곰탕",
+                  "subject": "한우곰탕 맛집 및 메뉴"
+                }},
+                {{
+                  "keyword": "식당 위치",
+                  "subject": "한우곰탕 식당의 위치 및 정보"
+                }}
+              ]
             }}
           ]
         }}
