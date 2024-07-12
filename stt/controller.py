@@ -53,7 +53,7 @@ def worker():
             processed_waveform = process_audio(waveform, sample_rate)
 
             # 리턴제로 서비스 요청
-            status, response_data = returnzero_service.request_text(processed_waveform)
+            status, response_data = returnzero_service.request_text(processed_waveform, max_retries=3)
             response_queue.put(request_id, (status, response_data))
         except Exception as e:
             print(f"Error: {str(e)}")
