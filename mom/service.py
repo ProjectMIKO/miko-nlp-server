@@ -23,10 +23,8 @@ async def process_message(messages):
         information I provided in your output.:
     
         Example conversation:
-        keyword(여행 계획): 여행 장소 및 관광지 회의 \n conversations: [speaker(준호): 우리 여행 가자. speaker(윤아): 
-        어디로 가고 싶어? speaker(준호): 대구 혹은 대전으로 가자. speaker(윤아): 그럼 성심당과 식장산을 방문하자.]
-        keyword(점심 식사): 점심 식사에 관한 회의 \n conversations: [speaker(준호): 점심 뭐 먹을까? speaker(민수): 난 치킨이나 피자. speaker(윤아): 난 
-        국밥이나 냉면. speaker(준호): 가까운 한우곰탕 어때? speaker(민수): 좋아.]
+        speaker(준호): 우리 여행 가자. speaker(윤아): 어디로 가고 싶어? speaker(준호): 대구 혹은 대전으로 가자. speaker(윤아): 그럼 성심당과 식장산을 방문하자.
+        speaker(준호): 점심 뭐 먹을까? speaker(민수): 난 치킨이나 피자. speaker(윤아): 난 국밥이나 냉면. speaker(준호): 가까운 한우곰탕 어때? speaker(민수): 좋아.
     
         Desired Markdown output:
         <h2> 여행 계획 </h2>
