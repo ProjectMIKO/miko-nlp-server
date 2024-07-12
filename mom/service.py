@@ -18,8 +18,8 @@ async def process_message(messages):
     # GPT 모델에 요약 요청
     for chunk in chunks:
         prompt = f""" You are a meeting summarization bot. Your main task is to read the conversation, generate a 
-        detailed meeting note body in html format in korean. do not write title. do not write conversation just 
-        write details Here is an example of a conversation and the desired output format:
+        detailed meeting note body in html format in korean. Do not use any information from the example conversation 
+        in your output. Only use the information from the provided conversation chunk.:
     
         Example conversation:
         keyword(여행 계획): 여행 장소 및 관광지 회의 \n conversations: [speaker(준호): 우리 여행 가자. speaker(윤아): 
