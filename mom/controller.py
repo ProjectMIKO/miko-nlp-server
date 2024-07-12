@@ -49,6 +49,7 @@ def get_mom():
             return jsonify({"error": "메시지가 제공되지 않았습니다."}), 400
 
         # 비동기 서비스 호출
+        print(messages)
         meeting_notes, cost = asyncio.run(service.process_message(messages))
         print(f"회의록: {meeting_notes}")
         print(f"요청 비용: ${cost:.5f}")
