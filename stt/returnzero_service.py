@@ -37,6 +37,7 @@ def get_access_token():
 
 def request_text(file, max_retries=3):
     print("\n리턴제로 요청 시작")
+
     retries = 0
     while retries <= max_retries:
         try:
@@ -62,6 +63,7 @@ def request_text(file, max_retries=3):
                 'https://openapi.vito.ai/v1/transcribe',
                 headers={'Authorization': 'bearer ' + access_token},
                 files=files
+
             )
             transcribe_resp.raise_for_status()
             response_json = transcribe_resp.json()
