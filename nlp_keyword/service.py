@@ -9,13 +9,17 @@ client = AsyncOpenAI(api_key=OPENAI_API_KEY)
 async def process_message(user_message):
     print("\nGPT 키워드 요청 시작")
     # GPT 모델에 요약 요청
-    prompt = f""" You are a meeting summarization bot. Your main task is to read the conversation, generate a very 
-    short title as a keyword, and summarize the content into key points under the corresponding topics. There can be multiple mains and multiple subs.
-    Here is an example of a conversation and the desired output format:
-            
-    Example conversation: "준호: 우리 여행 가자. 윤아: 어디로 가고 싶어? 준호: 대구나 대전 어때? 민수: 난 대전가서 성심당 갈래. 윤아: 성심당 괜찮네. 근데 나 배고파.
+    conversation = """준호: 우리 여행 가자. 윤아: 어디로 가고 싶어? 준호: 대구나 대전 어때? 민수: 난 대전가서 성심당 갈래. 윤아: 성심당 괜찮네. 근데 나 배고파.
     준호: 그럼 점심 뭐 먹을까? 민수: 난 치킨이나 피자. 윤아: 난 국밥먹고싶어. 준호: 그럼 가까운 한우곰탕이나 먹으러가자. 민수: 그럼 그러자. 그럼 대전에서 어디 또 갈까?
-    윤아: 식장산 야경이 유명하대. 식장산 가자."
+    윤아: 식장산 야경이 유명하대. 식장산 가자."""
+
+    prompt = f"""
+    You are a meeting summarization bot. Your main task is to read the conversation, generate very short titles as keywords (nouns), and summarize the content into key points under the corresponding topics. There can be multiple main topics, and each main topic can have multiple subtopics (sub1 and sub2) with a vertex depth of up to 3 levels. Make sure to include sub2 for every sub1.
+ 
+    
+    Here is an example of a conversation and the desired output format:
+    
+    Example conversation: "{conversation}"
     
     Desired JSON output:
     {{
@@ -25,34 +29,81 @@ async def process_message(user_message):
             "keyword": "여행 계획",
             "subject": "여행 장소 및 관광지 회의"
           }},
-          "sub": [
+          "sub1": [
             {{
               "keyword": "장소에 대한 회의",
-              "subject": "대구 혹은 대전으로 여행"
+              "subject": "대구 혹은 대전으로 여행",
+              "sub2": [
+                {{
+                  "keyword": "대구",
+                  "subject": "대구의 명소 및 관광지"
+                }},
+                {{
+                  "keyword": "대전",
+                  "subject": "대전의 명소 및 관광지"
+                }}
+              ]
             }},
             {{
               "keyword": "대전의 관광지 결정",
-              "subject": "성심당과 식장산을 방문하기로 함"
+              "subject": "성심당과 식장산을 방문하기로 함",
+              "sub2": [
+                {{
+                  "keyword": "성심당",
+                  "subject": "대전 성심당 빵집"
+                }},
+                {{
+                  "keyword": "식장산",
+                  "subject": "대전 식장산 전망대"
+                }}
+              ]
             }}
           ]
         }},
+        {{
           "main": {{
             "keyword": "점심 식사",
             "subject": "점심 식사에 관한 회의"
           }},
-          "sub": [
+          "sub1": [
             {{
               "keyword": "메뉴에 대한 고민",
-              "subject": "치킨, 피자, 국밥 등의 메뉴"
+              "subject": "치킨, 피자, 국밥 등의 메뉴",
+              "sub2": [
+                {{
+                  "keyword": "치킨",
+                  "subject": "치킨의 종류와 맛집"
+                }},
+                {{
+                  "keyword": "피자",
+                  "subject": "피자의 종류와 맛집"
+                }},
+                {{
+                  "keyword": "국밥",
+                  "subject": "국밥의 종류와 맛집"
+                }}
+              ]
             }},
             {{
               "keyword": "점심 식사 결정",
-              "subject": "가까운 한우곰탕에서 먹기로 결정"
+              "subject": "가까운 한우곰탕에서 먹기로 결정",
+              "sub2": [
+                {{
+                  "keyword": "한우곰탕",
+                  "subject": "한우곰탕 맛집 및 메뉴"
+                }},
+                {{
+                  "keyword": "식당 위치",
+                  "subject": "한우곰탕 식당의 위치 및 정보"
+                }}
+              ]
             }}
           ]
         }}
       ]
     }}
+    
+    Now, summarize the following conversation into the specified JSON format:
     
     Conversation to summarize:
     "{user_message}"
