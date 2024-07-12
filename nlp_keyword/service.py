@@ -14,13 +14,12 @@ async def process_message(user_message):
     윤아: 식장산 야경이 유명하대. 식장산 가자."""
 
     prompt = f"""
-    You are a meeting summarization bot. Your main task is to read the conversation, generate very short titles as keywords (nouns), and summarize the content into key points under the corresponding topics. There can be multiple main topics, and each main topic can have multiple subtopics (sub1 and sub2) with a vertex depth of up to 3 levels. Make sure to include sub2 for every sub1.
- 
-    
+    You are a meeting summarization bot. Your main task is to read the conversation, generate very short titles as keywords (nouns), and summarize the content into key points under the corresponding topics. There can be multiple main topics, and each main topic can have multiple subtopics with a vertex depth of up to 5 levels. Make sure to include all sub-levels even if they are empty lists.
+
     Here is an example of a conversation and the desired output format:
-    
+
     Example conversation: "{conversation}"
-    
+
     Desired JSON output:
     {{
       "idea": [
@@ -29,32 +28,53 @@ async def process_message(user_message):
             "keyword": "여행 계획",
             "subject": "여행 장소 및 관광지 회의"
           }},
-          "sub1": [
+          "sub": [
             {{
               "keyword": "장소에 대한 회의",
-              "subject": "대구 혹은 대전으로 여행",
-              "sub2": [
+              "subject": "부산 혹은 대전으로 여행",
+              "sub": [
                 {{
-                  "keyword": "대구",
-                  "subject": "대구의 명소 및 관광지"
+                  "keyword": "부산",
+                  "subject": "부산의 명소 및 관광지",
+                  "sub": [
+                    {{
+                      "keyword": "해운대",
+                      "subject": "부산의 해운대",
+                      "sub": [
+                        {{
+                          "keyword": "바다",
+                          "subject": "해운대에서 바다가 보고싶음",
+                          "sub": []
+                        }},
+                        {{
+                          "keyword": "서핑",
+                          "subject": "해운대에서 서핑하고 싶음",
+                          "sub": []
+                        }}
+                      ]
+                    }}
+                  ]
                 }},
                 {{
                   "keyword": "대전",
-                  "subject": "대전의 명소 및 관광지"
+                  "subject": "대전의 명소 및 관광지",
+                  "sub": []
                 }}
               ]
             }},
             {{
               "keyword": "대전의 관광지 결정",
               "subject": "성심당과 식장산을 방문하기로 함",
-              "sub2": [
+              "sub": [
                 {{
                   "keyword": "성심당",
-                  "subject": "대전 성심당 빵집"
+                  "subject": "대전 성심당 빵집",
+                  "sub": []
                 }},
                 {{
                   "keyword": "식장산",
-                  "subject": "대전 식장산 전망대"
+                  "subject": "대전 식장산 전망대",
+                  "sub": []
                 }}
               ]
             }}
@@ -65,36 +85,41 @@ async def process_message(user_message):
             "keyword": "점심 식사",
             "subject": "점심 식사에 관한 회의"
           }},
-          "sub1": [
+          "sub": [
             {{
               "keyword": "메뉴에 대한 고민",
               "subject": "치킨, 피자, 국밥 등의 메뉴",
-              "sub2": [
+              "sub": [
                 {{
                   "keyword": "치킨",
-                  "subject": "치킨의 종류와 맛집"
+                  "subject": "점심 메뉴 치킨",
+                  "sub": []
                 }},
                 {{
                   "keyword": "피자",
-                  "subject": "피자의 종류와 맛집"
+                  "subject": "점심 메뉴 피자",
+                  "sub": []
                 }},
                 {{
                   "keyword": "국밥",
-                  "subject": "국밥의 종류와 맛집"
+                  "subject": "점심 메뉴 국밥",
+                  "sub": []
                 }}
               ]
             }},
             {{
               "keyword": "점심 식사 결정",
               "subject": "가까운 한우곰탕에서 먹기로 결정",
-              "sub2": [
+              "sub": [
                 {{
                   "keyword": "한우곰탕",
-                  "subject": "한우곰탕 맛집 및 메뉴"
+                  "subject": "한우곰탕 맛집 및 메뉴",
+                  "sub": []
                 }},
                 {{
                   "keyword": "식당 위치",
-                  "subject": "한우곰탕 식당의 위치 및 정보"
+                  "subject": "한우곰탕 식당의 위치 및 정보",
+                  "sub": []
                 }}
               ]
             }}
@@ -102,9 +127,9 @@ async def process_message(user_message):
         }}
       ]
     }}
-    
-    Now, summarize the following conversation into the specified JSON format:
-    
+
+    Now, summarize the following conversation into the specified JSON format, ensuring each sub-level is included, even if they are empty lists:
+
     Conversation to summarize:
     "{user_message}"
     """
