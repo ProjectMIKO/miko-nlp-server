@@ -21,23 +21,26 @@ def get_mom():
 
         # 각 vertex에 대해 메시지를 구성
         messages = []
-        for vertex in vertexes:
-            keyword = vertex['keyword']
-            subject = vertex['subject']
-            conversation_ids = vertex['conversationIds']
-
-            related_conversations = [f"speaker({conversations[cid]['user']}): {conversations[cid]['script']}" for cid in
-                                     conversation_ids]
-            combined_conversations = " ".join(related_conversations)
-
-            message = f"keyword({keyword}): {subject} \n conversations: [{combined_conversations}]"
-            messages.append(message)
-
-        if not vertexes:
-            message = f"keyword(없음): 없음 \n conversations: ["
-            for conv_id, conversation in conversations.items():
-                message += f"speaker({conversation['user']}): {conversation['script']} "
-            message += "]"
+        # for vertex in vertexes:
+        #     keyword = vertex['keyword']
+        #     subject = vertex['subject']
+        #     conversation_ids = vertex['conversationIds']
+        #
+        #     related_conversations = [f"speaker({conversations[cid]['user']}): {conversations[cid]['script']}" for cid in
+        #                              conversation_ids]
+        #     combined_conversations = " ".join(related_conversations)
+        #
+        #     message = f"keyword({keyword}): {subject} \n conversations: [{combined_conversations}]"
+        #     messages.append(message)
+        #
+        # if not vertexes:
+        #     message = f"keyword(없음): 없음 \n conversations: ["
+        #     for conv_id, conversation in conversations.items():
+        #         message += f"speaker({conversation['user']}): {conversation['script']} "
+        #     message += "]"
+        #     messages.append(message)
+        for conv_id, conversation in conversations.items():
+            message = f"speaker({conversation['user']}): {conversation['script']}"
             messages.append(message)
 
         # print(f"messages: {messages}")
