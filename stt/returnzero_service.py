@@ -70,7 +70,7 @@ def request_text(file, max_retries=3):
             transcription_id = response_json['id']
 
             status_url = f'https://openapi.vito.ai/v1/transcribe/{transcription_id}'
-            timeout = time.time() + 300  # 5 minutes from now
+            timeout = time.time() + 5  # 5 sec from now
             while True:
                 if time.time() > timeout:
                     raise Exception("Transcription request timed out")
