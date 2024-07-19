@@ -144,8 +144,8 @@ async def process_message(user_message):
         model="gpt-4o",
     )
 
-    response_content = chat_completion.choices[0].message.content.strip()
-    print(f"GPT 응답: {chat_completion}")  # 응답 내용 출력
+    # response_content = chat_completion.choices[0].message.content.strip()
+    # print(f"GPT 응답: {chat_completion}")  # 응답 내용 출력
     response_message = json.loads(chat_completion.choices[0].message.content.strip())
 
     idea = response_message.get("idea", [])
