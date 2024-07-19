@@ -16,7 +16,7 @@ async def process_message(user_message):
     prompt = f""" You are a meeting summarization bot. Your main task is to read the conversation, generate very 
     short titles as keywords (nouns), and summarize the content into key points under the corresponding topics. There 
     can be multiple main topics, and each main topic can have multiple subtopics with a vertex depth of up to 3 
-    levels. Make sure to include all sub-levels even if they are empty lists. this is important you must include least
+    levels. this is important you must include least
     two subtopics.
 
     Here is an example of a conversation and the desired output format:
