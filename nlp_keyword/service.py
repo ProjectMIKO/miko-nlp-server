@@ -85,7 +85,7 @@ async def process_message(user_message):
         {{
           "main": {{
             "keyword": "점심 식사",
-            "subject": "점심 식사에 관한 회의",
+            "subject": "점심 식사에 관한 회의"
           }},
           "sub": [
             {{
