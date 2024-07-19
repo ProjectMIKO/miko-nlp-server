@@ -7,7 +7,7 @@ def calculate_cost(chat_completion):
     if model == "gpt-3.5-turbo-0125":
         prompt_cost_per_million = 0.05
         completion_cost_per_million = 1.50
-    elif model == "gpt-4o":
+    elif model == "gpt-4o-2024-05-13":
         prompt_cost_per_million = 5
         completion_cost_per_million = 15
     else:
