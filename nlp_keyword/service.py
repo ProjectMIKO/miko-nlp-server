@@ -130,7 +130,8 @@ async def process_message(user_message):
       ]
     }}
 
-    Now, summarize the following conversation into the specified JSON format, ensuring each sub-level is included, even if they are empty lists:
+    Now, summarize the following conversation into the specified JSON format, ensuring each sub-level is included, 
+    even if they are empty lists. this is important Only return the JSON data. Do not include any other information:
 
     Conversation to summarize:
     "{user_message}"
