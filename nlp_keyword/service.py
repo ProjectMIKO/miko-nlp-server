@@ -34,48 +34,48 @@ async def process_message(user_message):
           "sub": [
             {{
               "keyword": "장소에 대한 회의",
-              "subject": "부산 혹은 대전으로 여행",
+              "subject": "부산 혹은 대전으로 여행"
               "sub": [
                 {{
                   "keyword": "부산",
-                  "subject": "부산의 명소 및 관광지",
+                  "subject": "부산의 명소 및 관광지"
                   "sub": [
                     {{
                       "keyword": "해운대",
-                      "subject": "부산의 해운대",
+                      "subject": "부산의 해운대"
                       "sub": []
                     }},
                     {{
                       "keyword": "바다",
-                      "subject": "해운대에서 바다가 보고싶음",
+                      "subject": "해운대에서 바다가 보고싶음"
                       "sub": []
                     }},
                     {{
                       "keyword": "서핑",
-                      "subject": "해운대에서 서핑하고 싶음",
+                      "subject": "해운대에서 서핑하고 싶음"
                       "sub": []
                     }}
                   ]
                 }},
                 {{
                   "keyword": "대전",
-                  "subject": "대전의 명소 및 관광지",
+                  "subject": "대전의 명소 및 관광지"
                   "sub": []
                 }}
               ]
             }},
             {{
               "keyword": "대전의 관광지 결정",
-              "subject": "성심당과 식장산을 방문하기로 함",
+              "subject": "성심당과 식장산을 방문하기로 함"
               "sub": [
                 {{
                   "keyword": "성심당",
-                  "subject": "대전 성심당 빵집",
+                  "subject": "대전 성심당 빵집"
                   "sub": []
                 }},
                 {{
                   "keyword": "식장산",
-                  "subject": "대전 식장산 전망대",
+                  "subject": "대전 식장산 전망대"
                   "sub": []
                 }}
               ]
@@ -90,37 +90,37 @@ async def process_message(user_message):
           "sub": [
             {{
               "keyword": "메뉴에 대한 고민",
-              "subject": "치킨, 피자, 국밥 등의 메뉴",
+              "subject": "치킨, 피자, 국밥 등의 메뉴"
               "sub": [
                 {{
                   "keyword": "치킨",
-                  "subject": "점심 메뉴 치킨",
+                  "subject": "점심 메뉴 치킨"
                   "sub": []
                 }},
                 {{
                   "keyword": "피자",
-                  "subject": "점심 메뉴 피자",
+                  "subject": "점심 메뉴 피자"
                   "sub": []
                 }},
                 {{
                   "keyword": "국밥",
-                  "subject": "점심 메뉴 국밥",
+                  "subject": "점심 메뉴 국밥"
                   "sub": []
                 }}
               ]
             }},
             {{
               "keyword": "점심 식사 결정",
-              "subject": "가까운 한우곰탕에서 먹기로 결정",
+              "subject": "가까운 한우곰탕에서 먹기로 결정"
               "sub": [
                 {{
                   "keyword": "한우곰탕",
-                  "subject": "한우곰탕 맛집 및 메뉴",
+                  "subject": "한우곰탕 맛집 및 메뉴"
                   "sub": []
                 }},
                 {{
                   "keyword": "식당 위치",
-                  "subject": "한우곰탕 식당의 위치 및 정보",
+                  "subject": "한우곰탕 식당의 위치 및 정보"
                   "sub": []
                 }}
               ]
