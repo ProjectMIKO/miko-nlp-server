@@ -146,7 +146,19 @@ async def process_message(user_message):
 
     response_content = chat_completion.choices[0].message.content.strip()
     print(f"GPT 응답: {response_content}")  # 응답 내용 출력
-    response_message = json.loads(chat_completion.choices[0].message.content.strip())
+
+    # 이중 JSON 파싱 처리
+    if response_content.startswith('```json'):
+        response_content = response_content[7:-3].strip()
+    elif "```" in response_content:
+        response_content = response_content.split("```")[1].strip()
+
+    try:
+        response_message = json.loads(response_content)
+    except json.JSONDecodeError as e:
+        print(f"JSON 디코딩 에러: {e}")
+        print(f"응답 내용 (디코딩 실패): {response_content}")
+        raise e
 
     idea = response_message.get("idea", [])
 
