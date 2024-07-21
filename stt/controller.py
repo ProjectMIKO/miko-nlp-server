@@ -85,9 +85,21 @@ def speech_to_text():
         request_id = str(uuid.uuid4())
         request_queue.put((request_id, file_content))
 
+        base_delay = 5  # Base delay in seconds
+        max_delay = 60  # Maximum delay in seconds
+        delay = base_delay
+
         while True:
             response = response_queue.get(request_id)
             if response:
                 status, response_data = response
-                return jsonify({'text': response_data}), status
+                if status == 429:
+                    time_to_wait = min(delay, max_delay)
+                    time.sleep(time_to_wait)
+                    delay = min(delay * 2, max_delay)  # Increase delay for next retry
+                    request_queue.put((request_id, file_content))  # Re-queue the request
+                    continue
+                else:
+                    delay = base_delay  # Reset delay on successful request
+                    return jsonify({'text': response_data}), status
             time.sleep(0.1)
