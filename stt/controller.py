@@ -25,7 +25,7 @@ def check_global_delay():
     global last_429_time, current_delay
     with lock:
         if last_429_time and time.time() - last_429_time < current_delay:
-            print(f"waiting... {time.time() - last_429_time}/{current_delay}")
+            print(f"waiting... {int(time.time() - last_429_time)}/{current_delay} sec")
             return True
     return False
 
