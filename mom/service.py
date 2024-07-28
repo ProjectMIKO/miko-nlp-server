@@ -13,13 +13,14 @@ async def process_message(messages):
     cost = 0.0
 
     # 메시지를 토큰 수 제한 내에서 분할
-    chunks = split_message_into_chunks(messages, max_tokens=13000)
+    chunks = split_message_into_chunks(messages, max_tokens=100000)
 
     # GPT 모델에 요약 요청
     for chunk in chunks:
         prompt = f""" You are a meeting summarization bot. Your main task is to read the conversation, generate a 
         detailed meeting note body in html format in korean. Do not use any information from the example conversation 
-        in your output. Only use the information from the provided Conversation to summarize.:
+        in your output. Only use the information from the provided Conversation to summarize. do not include 
+        '```html` and '```' in your output.
     
         Example conversation:
         keyword(여행 계획): 여행 장소 및 관광지 회의 \n conversations: [speaker(준호): 우리 여행 가자. speaker(윤아): 
@@ -50,7 +51,7 @@ async def process_message(messages):
                 {"role": "system", "content": "You are a meeting summarization bot."},
                 {"role": "user", "content": prompt}
             ],
-            model="gpt-3.5-turbo",
+            model="gpt-4o-mini",
         )
 
         response_message = chat_completion.choices[0].message.content.strip()
@@ -64,7 +65,7 @@ async def process_message(messages):
 
 
 def split_message_into_chunks(messages, max_tokens):
-    enc = tiktoken.encoding_for_model("gpt-3.5-turbo")
+    enc = tiktoken.encoding_for_model("gpt-4o-mini")
     chunks = []
     current_chunk = []
     current_length = 0

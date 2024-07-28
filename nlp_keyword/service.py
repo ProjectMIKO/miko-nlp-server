@@ -14,10 +14,9 @@ async def process_message(user_message):
     윤아: 식장산 야경이 유명하대. 식장산 가자."""
 
     prompt = f""" You are a meeting summarization bot. Your main task is to read the conversation, generate very 
-    short titles as keywords (nouns), and summarize the content into key points under the corresponding topics. There 
+    short titles as keywords as nouns, and summarize the content into key points under the corresponding topics. There 
     can be multiple main topics, and each main topic can have multiple subtopics with a vertex depth of up to 3 
-    levels. Make sure to include all sub-levels even if they are empty lists. this is important you must include least
-    two subtopics.
+    levels. Make sure to include all sub-levels even if they are empty lists. try to make least two subtopics.
 
     Here is an example of a conversation and the desired output format:
 
@@ -130,7 +129,8 @@ async def process_message(user_message):
       ]
     }}
 
-    Now, summarize the following conversation into the specified JSON format, ensuring each sub-level is included, even if they are empty lists:
+    Now, summarize the following conversation into the specified JSON format, ensuring each sub-level is included, 
+    even if they are empty lists. this is important Only return the JSON data. Do not include any other information:
 
     Conversation to summarize:
     "{user_message}"
@@ -141,10 +141,24 @@ async def process_message(user_message):
             {"role": "system", "content": "You are a meeting summarization bot."},
             {"role": "user", "content": prompt}
         ],
-        model="gpt-3.5-turbo",
+        model="gpt-4o-mini",
     )
 
-    response_message = json.loads(chat_completion.choices[0].message.content.strip())
+    response_content = chat_completion.choices[0].message.content.strip()
+    # print(f"GPT 응답: {response_content}")  # 응답 내용 출력
+
+    # 이중 JSON 파싱 처리
+    if response_content.startswith('```json'):
+        response_content = response_content[7:-3].strip()
+    elif "```" in response_content:
+        response_content = response_content.split("```")[1].strip()
+
+    try:
+        response_message = json.loads(response_content)
+    except json.JSONDecodeError as e:
+        print(f"JSON 디코딩 에러: {e}")
+        print(f"응답 내용 (디코딩 실패): {response_content}")
+        raise e
 
     idea = response_message.get("idea", [])
 
