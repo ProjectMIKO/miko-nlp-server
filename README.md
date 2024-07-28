@@ -188,6 +188,20 @@ https://github.com/Rikorose/DeepFilterNet
 https://ffmpeg.org/download.html
 > 음성파일을 받으면 wav로 변환하는 작업에 사용됨.
 
+## .env 파일 생성
+```
+FLASK_ENV=dev // 현재 환경변수가 개발자 버전인지, 배포용인지 표시용
+FLASK_DEBUG=1
+
+OPENAI_API_KEY= // 오픈ai 키
+ETRI_API_KEY=// 대한민국 정부에서 국민에게 제공하는 stt 서비스 키 이지만, miko의 서비스에선 필요없음. 공란이어도 문제없습니다.
+
+# 리턴제로 계정 동시에 n개 처리가능
+RT_CLIENT_ID= // 리턴제로 아이디 토큰
+RT_CLIENT_SECRET= // 리턴제로 어플리케이션 시크릿 토큰
+MAX_CONCURRENT_REQUESTS=5 //리턴제로 계정에 따라 동시처리 갯수 제한이 있음. 해당 갯수 이하 로 이 값을 수정하시면 됩니다. 이 수 만큼 stt요청하는 worker가 실행됩니다.
+```
+
 ## 실행
 ```commandline
 $ python app.py
