@@ -13,7 +13,7 @@ async def process_message(messages):
     cost = 0.0
 
     # 메시지를 토큰 수 제한 내에서 분할
-    chunks = split_message_into_chunks(messages, max_tokens=13000)
+    chunks = split_message_into_chunks(messages, max_tokens=100000)
 
     # GPT 모델에 요약 요청
     for chunk in chunks:
