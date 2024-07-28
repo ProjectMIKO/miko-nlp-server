@@ -141,7 +141,7 @@ async def process_message(user_message):
             {"role": "system", "content": "You are a meeting summarization bot."},
             {"role": "user", "content": prompt}
         ],
-        model="gpt-4o",
+        model="gpt-4o-mini",
     )
 
     response_content = chat_completion.choices[0].message.content.strip()

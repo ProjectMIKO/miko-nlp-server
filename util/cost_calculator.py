@@ -10,6 +10,9 @@ def calculate_cost(chat_completion):
     elif model == "gpt-4o-2024-05-13":
         prompt_cost_per_million = 5
         completion_cost_per_million = 15
+    elif model == "gpt-4o-mini-2024-07-18":
+        prompt_cost_per_million = 0.15
+        completion_cost_per_million = 0.60
     else:
         raise ValueError(f"Model not supported: {model}")
 

@@ -64,7 +64,7 @@ async def process_message(messages):
 
 
 def split_message_into_chunks(messages, max_tokens):
-    enc = tiktoken.encoding_for_model("gpt-3.5-turbo")
+    enc = tiktoken.encoding_for_model("gpt-4o-mini")
     chunks = []
     current_chunk = []
     current_length = 0
